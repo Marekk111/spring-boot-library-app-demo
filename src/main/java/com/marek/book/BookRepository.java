@@ -20,9 +20,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                                @Param("size") long size);
     Optional<Book> findByName(String name);
 
-    List<Book> findByIsCurrentlyBorrowedTrue();
-
     List<Book> findByIsLostTrue();
-
-    //List<Book> findByIds();
 }

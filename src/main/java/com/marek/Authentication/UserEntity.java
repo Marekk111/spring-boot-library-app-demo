@@ -10,7 +10,6 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,8 +32,4 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "borrower", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Book> borrowedBooks = new ArrayList<>();
-
-//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-//    @JoinTable(name = "user_borrowing_history", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
-//    private List<Book> borrowingHistory = new ArrayList<>();
 }

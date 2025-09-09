@@ -7,12 +7,10 @@ import com.marek.book.BookRepository;
 import com.marek.book.BorrowingHistory;
 import com.marek.book.BorrowingHistoryRepository;
 import lombok.AllArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
@@ -37,7 +35,6 @@ public class ReportService {
             return 0.0f;
         }
 
-        // Group borrowings by year and count per year
         Map<Integer, Long> borrowingsByYear = allBorrowings.stream()
                 .collect(Collectors.groupingBy(
                         borrowing -> {
@@ -48,12 +45,10 @@ public class ReportService {
                         Collectors.counting()
                 ));
 
-        // Calculate total borrowings across all years
         long totalBorrowings = borrowingsByYear.values().stream()
                 .mapToLong(Long::longValue)
                 .sum();
 
-        // Calculate average (total borrowings / number of years)
         int numberOfYears = borrowingsByYear.size();
         return (float) totalBorrowings / numberOfYears;
     }
@@ -63,10 +58,8 @@ public class ReportService {
             return Collections.emptyList();
         }
 
-        // Get all borrowing history records
         List<BorrowingHistory> allBorrowings = borrowingHistoryRepo.findAll();
 
-        // Count borrowings per book
         Map<Long, Long> bookBorrowCounts = allBorrowings.stream()
                 .collect(Collectors.groupingBy(
                         BorrowingHistory::getBookId,
